@@ -1,11 +1,11 @@
 #include <iostream>
-#include<cstdlib>
-#include<string>
-#include<cstdio>
-#include<cstring>
-#include<vector>
-#include<iostream>
-#include<algorithm>
+#include <cstdlib>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <unistd.h>
+#include <sstream>
+#include <string>
 using namespace std;
 
 int auto_commit() {
@@ -18,13 +18,28 @@ int auto_commit() {
     vector<string>::iterator iter=cmds.begin();
     for(; iter!=cmds.end(); iter++) {
         string s=*iter;
-        cout<<s<<endl;
         system(s.c_str());
     }
 }
 
 int main() {
-    auto_commit();
+    while(true) {
+        auto_commit();
+
+        /* gap 6 hours */
+        for(int i=1; i<4320; ++i) {
+            /* print keep-alive log */
+            std::ostringstream ss;
+            ss << i;
+            string cmd="echo ";
+            cmd+=ss.str();
+            cmd+=" >>  keep_thread_alive.log";
+            system(cmd.c_str());
+            sleep(5);
+        }
+    }
     return 0;
 }
+
+
 
