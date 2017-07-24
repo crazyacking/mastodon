@@ -67,7 +67,7 @@ public class Main {
         commands.add("date \"+%Y-%m-%d %H:%M:%S\" >> exe_history");
         commands.add("git add .");
         commands.add("git commit -m \"impl ApnsPooledConnection.java\"");
-        commands.add("git push origin dev_crazyacking");
+        commands.add("git push");
 
         List<String> result = exec(commands.toArray(new String[0]));
 
@@ -104,6 +104,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("exec end");
         return result;
     }
 
@@ -124,13 +126,23 @@ public class Main {
         System.out.println("begin getLastExecDate()");
 
         List<String> res = exec("tail -n 1 exe_history");
+        System.out.println("res:" + res);
 
         if (res == null || res.size() == 0) {
-            exec("touch exe_history");
-            exec("date \"+%Y-%m-%d %H:%M:%S\" >> exe_history");
+            List<String> result1 = exec("touch exe_history");
+            for (String s : result1) {
+                System.out.println(s);
+            }
+            List<String> result2 = exec("date \"+%Y-%m-%d %H:%M:%S\" >> exe_history");
+            for (String s : result2) {
+                System.out.println(s);
+            }
         }
 
-        res = exec("tail -n 1 exe_history");
+        List<String> result = res = exec("tail -n 1 exe_history");
+        for (String s : result) {
+            System.out.println(s);
+        }
         String strDate = res.get(0);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
