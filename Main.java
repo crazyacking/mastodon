@@ -29,6 +29,7 @@ public class Main {
 
         while (true) {
             if (isExpired()) {
+                System.out.println("expired");
 
                 Random random = new Random();
                 int commitNum = random.nextInt(COMMIT_NUM_BOUND);
@@ -36,12 +37,16 @@ public class Main {
                 if (commitNum <= 0) {
                     commitNum = 1;
                 }
+
+                System.out.println("commitNum:" + commitNum);
+
                 while (commitNum > 0) {
                     commit();
                     commitNum--;
                 }
             }
             try {
+                System.out.println("Thread sleep begin");
                 Thread.sleep(INSPECTION_INTERVAL);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -54,6 +59,9 @@ public class Main {
      * Do a commit
      */
     public static void commit() {
+
+        System.out.println("===================== start commit");
+
         List<String> commands = new ArrayList<>();
 
         commands.add("date \"+%Y-%m-%d %H:%M:%S\" >> exe_history");
@@ -62,6 +70,8 @@ public class Main {
         commands.add("git push origin dev_crazyacking");
 
         List<String> result = exec(commands.toArray(new String[0]));
+
+        System.out.println("===================== commit end");
 
         log(LOG_FILE, result.toArray(new String[0]));
     }
@@ -73,9 +83,13 @@ public class Main {
      * @return Output result
      */
     private static List<String> exec(String... args) {
+
+        System.out.println("start exec:");
+
         List<String> result = new ArrayList<>();
         try {
             for (String arg : args) {
+                System.out.println(arg);
                 Process process = Runtime.getRuntime().exec(arg);
                 BufferedReader reader = new BufferedReader(
                     new InputStreamReader(process.getInputStream()));
@@ -106,6 +120,8 @@ public class Main {
     }
 
     private static Date getLastExecDate() {
+
+        System.out.println("begin getLastExecDate()");
 
         List<String> res = exec("tail -n 1 exe_history");
 
