@@ -1,5 +1,6 @@
 #! /bin/bash
 
+echo "---------------------------------------------------"
 echo "begin commit"
 
 sleep 30
@@ -13,3 +14,4 @@ git commit -m "impl ApnsPooledConnection.java"
 git push
 
 echo "end commit"
+echo "---------------------------------------------------"
