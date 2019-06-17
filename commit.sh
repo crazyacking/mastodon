@@ -3,11 +3,10 @@
 echo "---------------------------------------------------"
 echo "begin commit"
 
-sleep 30
-
 cd /Users/shanbiao.jsb/code/github/mastodon
 
-date "+%Y-%m-%d %H:%M:%S" >> exe_history
+#date "+%Y-%m-%d %H:%M:%S" >> exe_history
+echo " " >> exe_history
 
 git add .
 git commit -m "impl ApnsPooledConnection.java"
