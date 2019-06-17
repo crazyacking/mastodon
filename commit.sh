@@ -1,7 +1,7 @@
 #! /bin/bash
 
 echo "---------------------------------------------------"
-echo "begin commit"
+echo ">>> begin commit"
 
 cd /Users/shanbiao.jsb/code/github/mastodon
 
@@ -12,5 +12,5 @@ git add .
 git commit -m "impl ApnsPooledConnection.java"
 git push
 
-echo "end commit"
+echo ">>> end commit"
 echo "---------------------------------------------------"
